@@ -406,6 +406,51 @@ Obligatorio en onboarding. Si el usuario marca alguna condición de riesgo → n
 
 ---
 
+---
+
+## Lecciones aprendidas de Dietly — NO repetir estos errores
+
+### Seguridad
+- NUNCA exponer API keys en el cliente — todas en server-side
+- NUNCA dejar endpoints de test accesibles en producción
+- RLS desde el DÍA 1 en TODAS las tablas — no después
+- HMAC tokens para rutas públicas
+- XSS: sanitizar todo input del usuario antes de renderizar
+- CSP y HSTS headers desde el primer deploy
+- Auth obligatoria en TODOS los endpoints de API que acceden a datos
+- Delete de recursos SIEMPRE con filtro de ownership (user_id = auth.uid())
+
+### Validación
+- Zod en TODAS las rutas de API desde el día 1, no después
+- Rate limiting real desde el día 1
+- Verificar consentimiento del usuario antes de llamar a APIs de IA
+
+### Performance
+- NO usar force-dynamic en root layout
+- Paralelizar queries en dashboard con Promise.all
+- Error boundaries en todos los componentes async
+- Loading skeletons, no spinners genéricos
+
+### Base de datos
+- Verificar que TODAS las migraciones están aplicadas en producción
+- No dejar migraciones pendientes de verificar
+- Un solo directorio /libs/ — no duplicar /lib/ y /libs/
+- Eliminar queries duplicadas desde el inicio
+
+### UI/UX
+- No hardcodear colores de dark mode — usar variables CSS desde el inicio
+- Todos los paneles renderizados simultáneamente con display:none toggle
+- Banner de cookies no-blocking desde el día 1
+- PWA: detectar iOS/Android para instrucciones de instalación específicas
+
+### Código
+- ESLint fix SIEMPRE al final — nunca deployar con warnings
+- Commit y push SIEMPRE al final — nunca dejar trabajo sin subir
+- No acumular deuda técnica: si ves 2 archivos haciendo lo mismo, unifica YA
+
+
+
+
 ## Variables de entorno necesarias
 
 ```bash
